@@ -18,7 +18,10 @@ app.get("/:id", async (req, res) => {
     if (accepted.includes(req.params.id))
         res.render("ejs/"+req.params.id+".ejs");
     else
-        res.send("Error 404, not found");
+        res.render("ejs/notFound.ejs");
+});
+app.get("*", async (req, res) => {
+    res.render("ejs/notFound.ejs");
 });
 
 app.listen(PORT || 3000, _ => console.log("Listening on port: " + PORT));

@@ -3,5 +3,5 @@ String.prototype.replaceAt = function(start, end, str) {
 }
 
 function changeScreen(page) {
-    location.href = location.href.replaceAt(location.href.lastIndexOf('/'), location.href.length, "/"+page);
+    location.href = location.href.replaceAt(location.href.indexOf('/'), location.href.length, "/"+page);
 }
