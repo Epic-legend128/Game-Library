@@ -9,20 +9,22 @@ main {
     position: relative;
     min-height: 80vh;
     height: 100%;
-    width: 100vw;
+    width: 96vw;
     margin: 0;
     left: -8px;
     background-color: black;
+    padding-left: 2vw;
+    padding-right: 2vw;
 }
 
 footer {
     position: relative;
-    width: 99vw;
+    width: 100vw;
     height: 15vh;
     bottom: -5;
     left: -8px;
     margin: 0;
-    padding: 5px;
+    padding-top: 5px;
     text-align: center;
     border-top: grey 2px ridge;
     background-color: var(--main-background-color--);
@@ -35,6 +37,24 @@ section {
 
 .title {
     text-align: center;
+}
+
+.all-tags span {
+    position: relative;
+    top: -15px;
+    border-radius: 50%;
+    border: 1px white ridge;
+    background-color: grey;
+    color: black;
+    padding: 5px;
+    font-size: 80%;
+    margin-right: 10px;
+    transition: all 500ms ease-in-out;
+}
+
+.all-tags span:hover {
+    background-color: black;
+    color: white;
 }
 
 .navigation {
