@@ -15,6 +15,7 @@ main {
     background-color: black;
     padding-left: 2vw;
     padding-right: 2vw;
+    line-height: 32px;
 }
 
 footer {
@@ -29,10 +30,6 @@ footer {
     border-top: grey 2px ridge;
     background-color: var(--main-background-color--);
     opacity: 0.8;
-}
-
-section {
-    line-height: 32px;
 }
 
 .title {
