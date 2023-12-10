@@ -27,7 +27,7 @@ function populate() {
         x.tags.forEach(y => {
             tags += "<span class='game-tag'>"+y+"</span>";
         });
-        document.getElementById("game-info").innerHTML += "<h3>"+x.name+"</h3><span class='all-tags'>"+tags+"</span><p>"+x.desc+"</p>";
+        document.getElementById("game-info").innerHTML += "<div class='game-block'><h3>"+x.name+"</h3><span class='all-tags'>"+tags+"</span><p>"+x.desc+"</p></div>";
     });
 }
 
