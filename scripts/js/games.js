@@ -39,17 +39,48 @@ function search() {
         url = url.replace(/search=.*(&|$)/, "search="+str+"&");
     }
     else {
-        url += "search="+str;
+        url += "search="+str+"&";
     }
-    location.href = url;
+    return url;
 }
 
 function putFilterFields() {
+    let s = new Set();
+    games.forEach(x => {
+        x.tags.forEach(y => {
+            s.add(y);
+        });
+    });
     
+    let add = "";
+    s.forEach(x => {
+        add += "<input class='tags-filtering' id='tag-"+x.toLowerCase().replaceAll(/ /g, '-')+"' type='checkbox'> "+x+"<br>";
+    });
+    document.getElementById("search-tags").innerHTML = add;
 }
 
 function submitSearch() {
-    search();
+    let url = search();
+    let inputs = document.getElementsByClassName("tags-filtering");
+    for (let i = 0; i<inputs.length; i++) {
+        let x = inputs[i];
+        let str = x.id.substring(4).toLowerCase().replaceAll(/ /g, '-');
+        if (x.checked) {
+            if (new RegExp(`${str}=.*(&|$)`).test(str)) {
+                url = url.replace(new RegExp(`${str}=.*(&|$)`), str+"=true&");
+            }
+            else {
+                url += str+"=true&";
+            }
+        }
+        else {
+            if (new RegExp(`${str}=.*(&|$)`).test(str)) {
+                url = url.replace(new RegExp(`${str}=.*(&|$)`), "");
+            }
+        }
+    };
+
+    location.href = url;
 }
 
 function download(game) {
@@ -57,18 +88,18 @@ function download(game) {
 }
 
 function init() {
+    putFilterFields();
     let index = location.href.lastIndexOf("?");
     if (index == -1) {
         populate(...games);
-        putFilterFields();
     }
     else {
         let p = location.href.substring(index+1).split("&");
         let params = {};
         for (let i = 0; i<p.length; i++) {
             p[i] = [p[i].match(/.*=/), decodeURI(p[i].substring(p[i].lastIndexOf("=")+1))];
-            if (p[i][0] == null) {
-                break;
+            if (p[i][0] == null || p[i][1].length == 0) {
+                continue;
             }
             params[p[i][0][0].slice(0, -1)] = p[i][1];
         }
@@ -77,21 +108,33 @@ function init() {
         if (keys.length > 0) {
             if (keys.includes("search")) {
                 let str = params["search"];
+                document.getElementById("browse-input").value = str;
                 games.forEach(x => {
                     if (x.name.toLowerCase().includes(str.toLowerCase()) || x.desc.toLowerCase().includes(str.toLowerCase()) || x.tags.includes(str.toLowerCase())) {
                         g.push(x);
                     }
                 });
             }
-            if (keys.includes("tag")) {
-                //do sth
-            }
+            keys.forEach(x => {
+                if (x != "search") {
+                    if (g.length == 0 && !keys.includes("search")) g = games;
+                    let tag = document.getElementById("tag-"+x);
+                    tag.checked = true;
+                    if (tag != null) {
+                        for (let i = 0; i<g.length; i++) {
+                            let y = g[i];
+                            if (!(y.tags.includes(x.toLowerCase().replaceAll(/-/g, ' ')) || y.tags.includes(x.toUpperCase().replaceAll(/-/g, ' ')))) {
+                                g = (i == 0 ? g.splice(1) : [...g.splice(0, i), ...g.splice(i)]);
+                                i--;
+                            }
+                        };
+                    }
+                }
+            });
             populate(...g);
-            putFilterFields();
         }
         else {
             populate(...games);
-            putFilterFields();
         }
     }
 }
