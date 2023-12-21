@@ -5,7 +5,7 @@ const games = [{
 }, {
     name: "Flappy Bird",
     desc: "Flappy Bird is another classical and iconic game known all around the world so I decided to recreate it using Unity Engine. Flappy bird is played by guiding a flying bird through a forward moving map while avoiding any obstacles that may appear in the form of pipes. It may appear as an easy to play game but trust me, it takes hours just to get past score 30.",
-    tags: ["small", "single player"]
+    tags: ["small", "singleplayer"]
 }, {
     name: "Chess",
     desc: "Everybody is familiar with the classical board game known as chess. But did you know that the sheer amount of rules it has can make it pretty difficult to actually code? Yes, especially implementing checks, checkmates and stalemates as well as disabling illegal moves. All those can be pretty time consuming to code and debug.",
@@ -21,8 +21,8 @@ const games = [{
 }
 ];
 
-function populate() {
-    games.forEach(x => {
+function populate(...g) {
+    g.forEach(x => {
         let tags = "";
         x.tags.forEach(y => {
             tags += "<span class='game-tag'>"+y+"</span>";
@@ -31,8 +31,69 @@ function populate() {
     });
 }
 
+function search() {
+    let str = document.getElementById("browse-input").value;
+    let url = location.href;
+    if (!location.href.includes("?")) url += "?";
+    if (url.includes("search")) {
+        url = url.replace(/search=.*(&|$)/, "search="+str+"&");
+    }
+    else {
+        url += "search="+str;
+    }
+    location.href = url;
+}
+
+function putFilterFields() {
+    
+}
+
+function submitSearch() {
+    search();
+}
+
 function download(game) {
     changeScreen("download/"+game);
 }
 
-populate();
+function init() {
+    let index = location.href.lastIndexOf("?");
+    if (index == -1) {
+        populate(...games);
+        putFilterFields();
+    }
+    else {
+        let p = location.href.substring(index+1).split("&");
+        let params = {};
+        for (let i = 0; i<p.length; i++) {
+            p[i] = [p[i].match(/.*=/), decodeURI(p[i].substring(p[i].lastIndexOf("=")+1))];
+            if (p[i][0] == null) {
+                break;
+            }
+            params[p[i][0][0].slice(0, -1)] = p[i][1];
+        }
+        let keys = Object.keys(params);
+        let g = [];
+        if (keys.length > 0) {
+            if (keys.includes("search")) {
+                let str = params["search"];
+                games.forEach(x => {
+                    if (x.name.toLowerCase().includes(str.toLowerCase()) || x.desc.toLowerCase().includes(str.toLowerCase()) || x.tags.includes(str.toLowerCase())) {
+                        g.push(x);
+                    }
+                });
+            }
+            if (keys.includes("tag")) {
+                //do sth
+            }
+            populate(...g);
+            putFilterFields();
+        }
+        else {
+            populate(...games);
+            putFilterFields();
+        }
+    }
+}
+
+init();
