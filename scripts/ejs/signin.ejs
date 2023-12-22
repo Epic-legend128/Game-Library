@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Library</title>
+    <link rel="stylesheet" href="/../css/common.css" type="text/css">
+    <link rel="stylesheet" href="/../css/forms.css" type="text/css">
+  </head>
+  <body>
+    <nav class="navigation"> 
+        <button onClick="changeScreen('home')">Home</button>
+        <button onClick="changeScreen('library')">Game Library</button>
+        <% if (isLoggedIn) { %>
+            <% document.getElementsByClassName("navigation")[0].style.gridTemplateColumns = "1fr 1fr 1fr 1fr"; %>
+            <button onClick="changeScreen('signout')">Sign out</button>
+            <button onClick="changeScreen('delete')">Delete Account</button>
+        <% } else { %>
+            <button onClick="changeScreen('signin')">Sign in</button>
+        <% } %>
+    </nav>
+    <main>
+        <br><br>
+        <h1 class="title">Sign In</h1>
+        <form id="sign-in" action="/signin" method="POST">
+            <% if (error) {%>
+                <span class="message-fail">Incorrect username or password.</span>
+            <% } %>
+            <h3 for="username">Username: </h3>
+            <input id="username" name="username" type="text" required>
+            <br>
+            <h3 for="password">Password: </h3>
+            <input id="password" name="password" type="password" required>
+            <br>
+            <p>Don't have an account? <a href="/signup">Sign up</a></p>
+            <button class="button">Submit</button>
+        </form>
+    </main>
+    
+    <footer>Library of Games, source code on <a target="_blank" href="https://github.com/Epic-legend128/Game-Library">github repository</a></footer>
+
+    <script src="/../js/script.js"></script>
+  </body>
+</html>

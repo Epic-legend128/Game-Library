@@ -10,6 +10,15 @@
     <nav class="navigation"> 
       <button>Home</button>
       <button onClick="changeScreen('library')">Game Library</button>
+      <% if (isLoggedIn) { %>
+        <script>
+          document.getElementsByClassName("navigation")[0].style.gridTemplateColumns = "1fr 1fr 1fr 1fr";
+        </script>
+        <button onClick="changeScreen('signout')">Sign out</button>
+        <button onClick="changeScreen('delete')">Delete Account</button>
+      <% } else { %>
+        <button onClick="changeScreen('signin')">Sign in</button>
+      <% } %>
     </nav>
     <main>
       <br><br>

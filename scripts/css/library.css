@@ -1,0 +1,47 @@
+.game-block {
+    position: relative;
+    width: 80%;
+    background: linear-gradient(35deg, darkgrey, grey);
+    border-radius: 10px;
+    border: white 1px ridge;
+    padding: 12px;
+    margin-bottom: 1.2rem;
+    transition: all 300ms ease-in-out;
+}
+
+.game-block:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 10px rgba(200, 200, 200, 0.5);
+    cursor: grab;
+}
+
+.all-tags span {
+    position: relative;
+    top: -15px;
+    border-radius: 50%;
+    border: 1px white ridge;
+    background-color: grey;
+    color: black;
+    padding: 5px;
+    font-size: 80%;
+    margin-right: 10px;
+    transition: all 500ms ease-in-out;
+}
+
+.all-tags span:hover {
+    background-color: black;
+    color: white;
+}
+
+
+#game-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#content {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+}
