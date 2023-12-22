@@ -22,6 +22,10 @@ const games = [{
 ];
 
 function populate(...g) {
+    if (g.length == 0) {
+        document.getElementById("game-info").innerHTML = "<h2>No results<span style='color: black;'>________________</span></h2>";
+        return;
+    }
     g.forEach(x => {
         let tags = "";
         x.tags.forEach(y => {
@@ -54,7 +58,8 @@ function putFilterFields() {
     
     let add = "";
     s.forEach(x => {
-        add += "<input class='tags-filtering' id='tag-"+x.toLowerCase().replaceAll(/ /g, '-')+"' type='checkbox'> "+x+"<br>";
+        let y = x.toLowerCase().replaceAll(/ /g, '-');
+        add += "<input name='tag-"+y+"' class='tags-filtering' id='tag-"+y+"' type='checkbox'> <label for='tag-"+y+"'>"+x+"</label><br>";
     });
     document.getElementById("search-tags").innerHTML = add;
 }
