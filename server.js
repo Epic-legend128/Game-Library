@@ -134,8 +134,10 @@ app.post("/signup", bodyparser.urlencoded(), async (req, res) => {
             user.username = req.body.username;
             user.password = req.body.password;
             user.save().then(_ => {
-                req.session[KEY] = getUserId({username: user.username, password: user.password});
-                res.redirect("/home");
+                getUserId({username: user.username, password: user.password}).then(id => {
+                    req.session[KEY] = id;
+                    res.redirect("/home");
+                });
             });
         }
     });
