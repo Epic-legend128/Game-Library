@@ -1,1 +1,5 @@
 scripts/games/tictactoe.zip filter=lfs diff=lfs merge=lfs -text
+scripts/games/snake.zip filter=lfs diff=lfs merge=lfs -text
+scripts/games/minesweeper.zip filter=lfs diff=lfs merge=lfs -text
+scripts/games/chess.zip filter=lfs diff=lfs merge=lfs -text
+scripts/games/flappybird.zip filter=lfs diff=lfs merge=lfs -text
