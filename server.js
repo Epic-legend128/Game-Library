@@ -34,7 +34,7 @@ app.get("/download/:game", async (req, res) => {
     if (GAMES.includes(filename)) {
         res.render("ejs/download.ejs", {
             title: req.params.game,
-            file: filename+".dmg",
+            file: filename+".zip",
             isLoggedIn: loggedIn(req.session)
         });
     }
