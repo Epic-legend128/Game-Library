@@ -18,6 +18,10 @@ const games = [{
     name: "Snake",
     desc: "Another iconic game brought to life in this website, Snake. This game was definitely one of the easiest to code yet also one of the most interesting ones. It was one of the first games which I developed for this website. Nothing too complicated about it but definitely addictive to play. I spent more time playing it rather than coding it.",
     tags: ["small", "singleplayer"]
+}, {
+    name: "Platformer",
+    desc: "This game involves you controlling a character called fire spirit and going through a dungeon defeaing monsters while upgrading your skills. To beat the game you need to get strong enough to beat the final boss. This game was my favourite when making as I had the chance to experiment with a lot of different methods to deal with all the mechanics which the game required such as small power ups for the character, different kinds of enemies, a balanced fighting experience, small parkouring places, nice animations and many more.",
+    tags: ["big", "singleplayer"]
 }
 ];
 
