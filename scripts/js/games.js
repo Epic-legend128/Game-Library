@@ -1,4 +1,4 @@
-const games = [{
+const GAMES = [{
     name: "Tic Tac Toe",
     desc: "Tic Tac Toe is a very popular game which is why I chose to make it. I first made it so that you can play against somebody from the same computer but that proved far too simple. Therefore I decided to complicate it a bit more by adding an AI to play against. It works by utilising an algorithm called minimax to play the best move in each case. Minimax works by recursively solving the game and choosing the quickest path to victory.",
     tags: ["small", "AI", "2 player"]
@@ -52,13 +52,14 @@ function search() {
     return url;
 }
 
-function putFilterFields() {
+function putFilterFields(games) {
     let s = new Set();
     games.forEach(x => {
         x.tags.forEach(y => {
             s.add(y);
         });
     });
+    s.add("favourite");
     
     let add = "";
     s.forEach(x => {
@@ -97,7 +98,19 @@ function download(game) {
 }
 
 function init() {
-    putFilterFields();
+    let games = GAMES;
+    let favs = document.getElementsByClassName("favourites");
+    for (let j = 0; j<favs.length; j++) {
+        let x = favs[j].innerHTML;
+        for (let i = 0; i<GAMES.length; i++) {
+            if (GAMES[i].name.replaceAll(/ /g, '').toLowerCase() == x) {
+                games[i].tags.push('favourite');
+                break;
+            }
+        }
+    }
+
+    putFilterFields(games);
     let index = location.href.lastIndexOf("?");
     if (index == -1) {
         populate(...games);
@@ -131,9 +144,10 @@ function init() {
                     tag.checked = true;
                     if (tag != null) {
                         for (let i = 0; i<g.length; i++) {
+                            if (g[i] == undefined) break;
                             let y = g[i];
                             if (!(y.tags.includes(x.toLowerCase().replaceAll(/-/g, ' ')) || y.tags.includes(x.toUpperCase().replaceAll(/-/g, ' ')))) {
-                                g = (i == 0 ? g.splice(1) : [...g.splice(0, i), ...g.splice(i)]);
+                                g.splice(i, 1);
                                 i--;
                             }
                         };

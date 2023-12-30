@@ -35,7 +35,8 @@ app.get("/download/:game", async (req, res) => {
         res.render("ejs/download.ejs", {
             title: req.params.game,
             file: filename+".zip",
-            isLoggedIn: loggedIn(req.session)
+            isLoggedIn: loggedIn(req.session),
+            isFav: includes(req.session, filename)
         });
     }
     else {
@@ -47,6 +48,7 @@ app.get("/delete", async (req, res) => {
     if (loggedIn(req.session)) {
         User.findByIdAndDelete(req.session[KEY]).then(_ => {
             req.session[KEY] = "";
+            req.session.favourites = [];
             res.redirect("/home");
         });
     }
@@ -73,15 +75,24 @@ app.get("/signin", async (req, res) => {
 app.get("/signout", async (req, res) => {
     if (loggedIn(req.session)) {
         req.session[KEY] = "";
+        req.session.favourites = [];
     }
     res.redirect("/home");
 });
 
 app.get("/:id", async (req, res) => {
     if (ACCEPTED.includes(req.params.id)) {
-        res.render("ejs/"+req.params.id+".ejs", {
-            isLoggedIn: loggedIn(req.session)
-        });
+        if (req.params.id == "library") {
+            res.render("ejs/"+req.params.id+".ejs", {
+                favourites: (req.session.favourites == null ? [] : req.session.favourites),
+                isLoggedIn: loggedIn(req.session)
+            });
+        }
+        else {
+            res.render("ejs/"+req.params.id+".ejs", {
+                isLoggedIn: loggedIn(req.session)
+            });
+        }
     }
     else {
         res.render("ejs/notFound.ejs", {
@@ -93,8 +104,11 @@ app.get("/:id", async (req, res) => {
 app.post("/signin", bodyparser.urlencoded(), async (req, res) => {
     getUserId(req.body).then(id => {
         if (id != null) {
-            req.session[KEY] = id;
-            res.redirect("/home");
+            User.findById(id).then(fav => {
+                req.session[KEY] = id;
+                req.session.favourites = fav.favourites;
+                res.redirect("/home");
+            });
         }
         else {
             res.render("ejs/signin.ejs", {
@@ -133,13 +147,29 @@ app.post("/signup", bodyparser.urlencoded(), async (req, res) => {
         else {
             user.username = req.body.username;
             user.password = req.body.password;
+            user.favourites = [];
             user.save().then(_ => {
                 getUserId({username: user.username, password: user.password}).then(id => {
                     req.session[KEY] = id;
+                    req.session.favourites = [];
                     res.redirect("/home");
                 });
             });
         }
+    });
+});
+
+app.post("/addFav", bodyparser.urlencoded(), async (req, res) => {
+    req.session.favourites.push(req.body.fav);
+    User.findByIdAndUpdate(req.session[KEY], {favourites: req.session.favourites}).then(_ => {
+        res.redirect(req.get('referer'));
+    });
+});
+
+app.post("/delFav", bodyparser.urlencoded(), async (req, res) => {
+    req.session.favourites.splice(req.session.favourites.indexOf(req.body.fav), 1);
+    User.findByIdAndUpdate(req.session[KEY], {favourites: req.session.favourites}).then(_ => {
+        res.redirect(req.get('referer'));
     });
 });
 
@@ -164,4 +194,12 @@ function getUserId(user) {
 
 function loggedIn(session) {
     return (session.hasOwnProperty(KEY) && session[KEY] != "");
+}
+
+function includes(session, file) {
+    if (!session.hasOwnProperty("favourites")) return false;
+    for (let i = 0; i<session.favourites.length; i++) {
+        if (session.favourites[i] == file) return true;
+    }
+    return false;
 }

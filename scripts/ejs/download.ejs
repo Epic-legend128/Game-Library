@@ -24,8 +24,22 @@
         <br><br>
         <h1 class="title">Download <%- title %></h1>
         <p>Download the game <a target="_blank" href=/../games/<%- file %> download>here</a></p>
+        <% if (isLoggedIn) { %>
+          <% if (!isFav) { %>
+          <form action="/addFav" method="POST">
+            <input id="fav" name="fav" hidden>
+            <button class="button" onClick="addToFavourites()"> Add to favourites </button>
+          </form>
+          <% } else { %>
+            <form action="/delFav" method="POST">
+              <input id="fav" name="fav" hidden>
+              <button class="button" onClick="addToFavourites()"> Delete from favourites </button>
+            </form>
+          <% } %>
+        <% } %>
     </main>
     <footer>Library of Games, source code on <a target="_blank" href="https://github.com/Epic-legend128/Game-Library">github repository</a></footer>
     <script src="/../js/script.js"></script>
+    <script src="/../js/download.js"></script>
   </body>
 </html>

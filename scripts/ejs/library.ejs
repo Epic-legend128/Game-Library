@@ -31,6 +31,11 @@
           <aside>
             <h2>Search and filter</h2>
             <input type="text" id="browse-input" placeholder="Search...">
+            <div hidden>
+              <% for (let i = 0; i<favourites.length; i++) { %>
+                <span class="favourites"><%- favourites[i] %></span>
+              <% } %>
+            </div>
             <div id="search-tags">
 
             </div>
