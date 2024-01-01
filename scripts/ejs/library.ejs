@@ -14,6 +14,7 @@
       <% if (isLoggedIn) { %>
         <script>
           document.getElementsByClassName("navigation")[0].style.gridTemplateColumns = "1fr 1fr 1fr 1fr";
+          var isLoggedIn = true;
         </script>
         <button onClick="changeScreen('signout')">Sign out</button>
         <button onClick="changeScreen('delete')">Delete Account</button>

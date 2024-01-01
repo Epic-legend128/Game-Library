@@ -1,3 +1,4 @@
+if (typeof isLoggedIn == undefined) var isLoggedIn = false;
 const GAMES = [{
     name: "Tic Tac Toe",
     desc: "Tic Tac Toe is a very popular game which is why I chose to make it. I first made it so that you can play against somebody from the same computer but that proved far too simple. Therefore I decided to complicate it a bit more by adding an AI to play against. It works by utilising an algorithm called minimax to play the best move in each case. Minimax works by recursively solving the game and choosing the quickest path to victory.",
@@ -59,7 +60,7 @@ function putFilterFields(games) {
             s.add(y);
         });
     });
-    s.add("favourite");
+    if (isLoggedIn != null && isLoggedIn) s.add("favourite");
     
     let add = "";
     s.forEach(x => {
