@@ -22,8 +22,12 @@ const GAMES = [{
 }, {
     name: "Platformer",
     desc: "This game involves you controlling a character called fire spirit and going through a dungeon defeaing monsters while upgrading your skills. To beat the game you need to get strong enough to beat the final boss. This game was my favourite when making as I had the chance to experiment with a lot of different methods to deal with all the mechanics which the game required such as small power ups for the character, different kinds of enemies, a balanced fighting experience, small parkouring places, nice animations and many more.",
-    tags: ["big", "singleplayer"]
-}
+    tags: ["big", "singleplayer", "combat"]
+}, {
+    name: "Adventure Game",
+    desc: "In this game you control a character on a 2D flat map where you get to explore the limited world that has been built for you to enjoy. There are a couple of missions you need to complete in order to complete the game. You'll go searching for items, navigating through mazes and fighting enemies. A lot of animation was used in this game as well as the use of tilemaps which were interesting concepts to explore.",
+    tags: ["big", "singleplayer", "combat"]
+ }
 ];
 
 function populate(...g) {

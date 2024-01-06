@@ -10,7 +10,7 @@ const User = mongoose.model("User");
 const app = express();
 const PORT = 3000;
 const ACCEPTED = ["home", "library", "signin", "signup", "signout", "delete"];
-const GAMES = ["tictactoe", "snake", "minesweeper", "flappybird", "chess", "platformer"];
+const GAMES = ["tictactoe", "snake", "minesweeper", "flappybird", "chess", "platformer", "adventuregame"];
 const KEY = "thisIsTheKeyNeededForTheCookies";
 
 app.use(cookieSession({
