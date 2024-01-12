@@ -8,7 +8,7 @@ const cookieSession = require("cookie-session");
 const User = mongoose.model("User");
 
 const app = express();
-const PORT = 3000;
+const PORT = 8080;
 const ACCEPTED = ["home", "library", "signin", "signup", "signout", "delete"];
 const GAMES = ["tictactoe", "snake", "minesweeper", "flappybird", "chess", "platformer", "adventuregame"];
 const KEY = "thisIsTheKeyNeededForTheCookies";
@@ -177,7 +177,7 @@ app.get("*", async (req, res) => {
     res.render("ejs/notFound.ejs");
 });
 
-app.listen(PORT || 3000, _ => console.log("Listening on port: " + PORT));
+app.listen(PORT, _ => console.log("Listening on port: " + PORT));
 
 function getUserId(user) {
     return new Promise((resolve, reject) => {
