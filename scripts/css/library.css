@@ -1,7 +1,7 @@
 .game-block {
     position: relative;
     width: 80%;
-    background: linear-gradient(35deg, darkgrey, grey);
+    background: linear-gradient(35deg, var(--visible-background-color--), lightgrey);
     border-radius: 10px;
     border: white 1px ridge;
     padding: 12px;

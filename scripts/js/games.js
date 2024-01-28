@@ -71,7 +71,7 @@ function putFilterFields(games) {
         let y = x.toLowerCase().replaceAll(/ /g, '-');
         add += "<input name='tag-"+y+"' class='tags-filtering' id='tag-"+y+"' type='checkbox'> <label for='tag-"+y+"'>"+x+"</label><br>";
     });
-    document.getElementById("search-tags").innerHTML = add;
+    document.getElementById("search-tags").innerHTML = "<legend>Fitlers</legend>"+add;
 }
 
 function submitSearch() {
