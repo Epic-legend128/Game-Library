@@ -4,6 +4,7 @@ const path = require("path");
 const bodyparser = require("body-parser");
 const mongoose = require("mongoose");
 const cookieSession = require("cookie-session");
+require("dotenv").config();
 
 const User = mongoose.model("User");
 
@@ -11,11 +12,11 @@ const app = express();
 const PORT = 8080;
 const ACCEPTED = ["home", "library", "signin", "signup", "signout", "delete"];
 const GAMES = ["tictactoe", "snake", "minesweeper", "flappybird", "chess", "platformer", "adventuregame"];
-const KEY = "thisIsTheKeyNeededForTheCookies";
+const KEY = process.env.COOKIES_KEY;
 
 app.use(cookieSession({
     name: 'session',
-    keys: ["key1", "key2"],
+    keys: [process.env.COOKIES_1, process.env.COOKIES_2],
     maxAge: 24 * 60 * 60 * 1000
 }));
 

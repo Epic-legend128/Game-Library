@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
+require("dotenv").config();
 
-mongoose.connect("mongodb+srv://fotios:82CYntUJE5R2zy0L@cluster0.6wwqpfc.mongodb.net/?retryWrites=true&w=majority", {
+mongoose.connect(process.env.DB_LINK, {
     useNewUrlParser: true
 });
 
