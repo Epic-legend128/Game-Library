@@ -45,3 +45,36 @@
     display: grid;
     grid-template-columns: 1fr 5fr;
 }
+
+@media only screen and (max-width: 800px) {
+    aside {
+        font-size: 0.8rem;
+    }
+
+    #game-info {
+        font-size: 0.8rem;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .game-block p {
+        font-size: 0.6rem;
+        line-height: 15px;
+    }
+
+    #browse-input {
+        width: 100%;
+    }
+
+    #search-tags {
+        font-size: 0.6rem;
+    }
+
+    #content {
+        grid-template-columns: 1fr 2fr;
+    }
+
+    footer {
+        font-size: 0.8rem;
+    }
+}
