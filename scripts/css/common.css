@@ -1,5 +1,5 @@
 body, html {
-    --main-background-color--: black/* rgb(122, 122, 122); */;
+    --main-background-color--: black;
     --visible-background-color--: white;
     --text-color--: black;
     --button-color--: rgb(216, 10, 10);
@@ -89,4 +89,10 @@ footer {
     cursor: grab;
     box-shadow: 0 2px 6px rgba(200, 200, 200, 0.5);
     transform: scale(1.1);
+}
+
+@media only screen and (max-width: 400px) {
+    footer {
+        font-size: 0.8rem;
+    }
 }

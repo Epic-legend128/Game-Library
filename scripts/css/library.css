@@ -73,8 +73,4 @@
     #content {
         grid-template-columns: 1fr 2fr;
     }
-
-    footer {
-        font-size: 0.8rem;
-    }
 }
